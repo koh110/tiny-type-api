@@ -1,0 +1,31 @@
+{
+  "name": "@tiny-type-api/client",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "keywords": [
+    "api",
+    "typescript",
+    "client"
+  ],
+  "description": "library for defining api interface client by TypeScript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koh110/tiny-type-api.git"
+  },
+  "scripts": {
+    "format": "prettier --write src ./*.{ts,json}",
+    "build": "tsc --build tsconfig.json",
+    "pretest": "npm run build",
+    "test": "vitest run --config ./vitest.config.ts"
+  },
+  "exports": {
+    ".": "./dist/src/index.js"
+  },
+  "author": "koh110",
+  "license": "MIT",
+  "devDependencies": {
+    "path-to-regexp": "^6.2.1",
+    "typescript": "^5.2.2"
+  }
+}

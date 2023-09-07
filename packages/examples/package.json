@@ -1,0 +1,23 @@
+{
+  "name": "@tiny-type-api/examples",
+  "type": "module",
+  "description": "library for defining api interface server/client by TypeScript",
+  "scripts": {
+    "format": "prettier --write src",
+    "prestart:server": "npm run build",
+    "start:server": "node dist/src/server.js",
+    "prestart:client": "npm run build",
+    "start:client": "node dist/src/client.js",
+    "build": "tsc --build tsconfig.json",
+    "test": "npm run build"
+  },
+  "author": "koh110",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

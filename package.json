@@ -1,0 +1,21 @@
+{
+  "name": "tiny-type-api",
+  "version": "1.0.0",
+  "description": "library for defining api interface server/client by TypeScript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koh110/tiny-type-api.git"
+  },
+  "author": "koh110",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "format": "npm run format --workspaces --if-present"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "vitest": "^0.34.3"
+  }
+}
