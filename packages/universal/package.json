@@ -1,6 +1,12 @@
 {
   "name": "@tiny-type-api/universal",
+  "version": "1.0.0",
   "type": "module",
+  "main": "dist/src/index.js",
+  "keywords": [
+    "api",
+    "typescript"
+  ],
   "description": "library for defining api interface server/client by TypeScript",
   "repository": {
     "type": "git",

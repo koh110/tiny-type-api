@@ -1,0 +1,1 @@
+# @tiny-type-api/universal
