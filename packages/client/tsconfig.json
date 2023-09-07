@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "incremental": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "module": "NodeNext",
+    "target": "esnext",
+    "skipLibCheck": true,
+    "composite": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "references": [{ "path": "../universal" }],
+  "exclude": ["node_modules", "dist", "vitest.config.ts"]
+}

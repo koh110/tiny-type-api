@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "incremental": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "module": "NodeNext",
+    "target": "esnext",
+    "skipLibCheck": true,
+    "composite": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "references": [{ "path": "../universal" }, { "path": "../client" }],
+  "exclude": ["node_modules", "**/*.test.ts", "dist", "vitest.config.ts"]
+}
