@@ -2,6 +2,14 @@
 
 library for defining api interface server/client by TypeScript
 
+[@tiny-type-api/universal](https://www.npmjs.com/package/@tiny-type-api/universal)
+
+[![npm version](https://badge.fury.io/js/@tiny-type-api%2Funiversal.svg)](https://badge.fury.io/js/@tiny-type-api%2Funiversal)
+
+[@tiny-type-api/client](https://www.npmjs.com/package/@tiny-type-api/client)
+
+[![npm version](https://badge.fury.io/js/@tiny-type-api%2Fclient.svg)](https://badge.fury.io/js/@tiny-type-api%2Fclient)
+
 ## how to use
 
 ```javascript
