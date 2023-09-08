@@ -84,7 +84,7 @@ export const { apis } = defineApis({
 ---
 
 // client.ts
-import { createClients } from '@tiny-type-api/client'
+import { createClients, type Fetcher } from '@tiny-type-api/client'
 import { apis } from './universal.js'
 
 const clients = createClients(apis, 'http://localhost:8000')
@@ -115,6 +115,31 @@ clients['/api/user/:user_id'].PUT.client({
   form: {
     icon: new Blob()
   }
+}).then(console.log)
+
+// use custom fetcher
+const fetcher: Fetcher = async <T>(options: Parameters<Fetcher>[0]) => {
+  const init: Parameters<typeof fetch>[1] = {
+    method: options.method
+  }
+
+  if (options.body) {
+    init.body =
+      typeof options.body === 'string'
+        ? options.body
+        : JSON.stringify(options.body)
+  }
+
+  const res = await fetch(options.url, init)
+  return res as T
+}
+
+clients['/api/user/:user_id'].POST.client({
+  params: { user_id: 'user-id' },
+  body: {
+    name: 'user-name'
+  },
+  fetcher: fetcher
 }).then(console.log)
 
 ---

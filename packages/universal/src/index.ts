@@ -27,7 +27,7 @@ function addParams<T extends Routes<string>>(apis: T) {
     if (key.includes('/:')) {
       for (const method of Object.keys(api)) {
         // @ts-expect-error
-        api[method].params = define<typeof key>()
+        api[method].request.params = define<typeof key>()
       }
     }
   }

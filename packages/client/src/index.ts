@@ -134,6 +134,9 @@ async function defaultFetcher<T>(options: {
   } as T
 }
 
+export type Fetcher = typeof defaultFetcher
+export type fetcherOptions = Parameters<typeof defaultFetcher>[0]
+
 export function createClients<T extends Record<string, RouteMethodType>>(
   apis: T,
   url: string = ''
