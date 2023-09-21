@@ -19,6 +19,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run build -w @tiny-type-api/universal
+      - run: cp ./README.md ./packages/universal/README.md
       - run: npm publish -w @tiny-type-api/universal --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -34,6 +35,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run build -w @tiny-type-api/client
+      - run: cp ./README.md ./packages/client/README.md
       - run: npm publish -w @tiny-type-api/client --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
