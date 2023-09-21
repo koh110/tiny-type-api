@@ -177,6 +177,5 @@ async function handler(req: Request, res: Response) {
 
 ```bash
 $ npm install
-$ npm run start:server -w @tiny-type-api/examples
-$ npm run start:client -w @tiny-type-api/examples
+$ npm run start -w @tiny-type-api/examples
 ```

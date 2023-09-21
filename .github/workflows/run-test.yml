@@ -47,4 +47,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
+      - run: npm run build -w @tiny-type-api/universal -w @tiny-type-api/client
       - run: npm run test -w @tiny-type-api/examples

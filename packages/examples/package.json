@@ -4,12 +4,11 @@
   "description": "library for defining api interface server/client by TypeScript",
   "scripts": {
     "format": "prettier --write src",
-    "prestart:server": "npm run build",
-    "start:server": "node dist/src/server.js",
-    "prestart:client": "npm run build",
-    "start:client": "node dist/src/client.js",
+    "prestart": "npm run build",
+    "start": "PORT=8000 node dist/src/server.js",
     "build": "tsc --build tsconfig.json",
-    "test": "npm run build"
+    "pretest": "npm run build",
+    "test": "vitest run --config ./vitest.config.ts"
   },
   "author": "koh110",
   "license": "MIT",
@@ -18,6 +17,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "@tiny-type-api/universal": "file:../universal",
+    "@tiny-type-api/client": "file:../client"
   }
 }

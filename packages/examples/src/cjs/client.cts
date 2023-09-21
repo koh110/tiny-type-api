@@ -1,5 +1,5 @@
 import { createClients } from '@tiny-type-api/client'
-import { apis } from './universal.js'
+import { apis } from './universal.cjs'
 
 export async function client(port: string | number) {
   const clients = createClients(apis, `http://localhost:${port}`)

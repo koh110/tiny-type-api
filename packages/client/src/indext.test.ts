@@ -12,7 +12,7 @@ const { apis } = defineApis({
           body: define<string>()
         }
       }
-    },
+    }
   },
   '/api/user/:user_id': {
     POST: {
@@ -154,14 +154,11 @@ test('clients: custom fetcher', async () => {
   expect(res.body).toStrictEqual('https://localhost:8000/api/@me')
   expect(requestMock).toBeCalledTimes(0)
   expect(fetcher).toBeCalledTimes(1)
-  expect(fetcher).toBeCalledWith(
-    {
-      url: 'https://localhost:8000/api/@me',
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  expect(fetcher).toBeCalledWith({
+    url: 'https://localhost:8000/api/@me',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
     }
-  )
+  })
 })
-

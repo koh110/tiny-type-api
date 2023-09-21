@@ -63,9 +63,10 @@ const { apis } = defineApis({
 })
 
 test('added params function', async () => {
-  expect(apis['/api/user/:user_id'].GET.request.params({ user_id: '1' }).user_id).toStrictEqual('1')
+  expect(
+    apis['/api/user/:user_id'].GET.request.params({ user_id: '1' }).user_id
+  ).toStrictEqual('1')
 })
-
 
 test('no params function', async () => {
   expect((apis['/api/user'].GET.request as any).params).toStrictEqual(undefined)

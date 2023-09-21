@@ -46,7 +46,7 @@ function createClient<TPath extends string, TRoute extends RouteType>(
   method: Method
 ) {
   const client = async (options: ClinetOptions<TPath, TRoute>) => {
-    // @ts-expect-error
+    // @ts-ignore
     let path = toPath(options.params ?? {})
     const query = options.query ?? {}
     if (Object.keys(query).length > 0) {

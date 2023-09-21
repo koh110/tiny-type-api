@@ -4,8 +4,8 @@ import express, {
   type Response,
   type NextFunction
 } from 'express'
-import { apis } from './universal.js'
-import { client } from './client.js'
+import { apis } from './universal.cjs'
+import { client } from './client.cjs'
 
 async function handler(req: Request, res: Response) {
   const api = apis['/api/user/:user_id']['POST']

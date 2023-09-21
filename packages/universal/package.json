@@ -2,7 +2,8 @@
   "name": "@tiny-type-api/universal",
   "version": "1.0.1",
   "type": "module",
-  "main": "dist/src/index.js",
+  "main": "./dist/esm/src/index.js",
+  "types": "./dist/esm/src/index.d.ts",
   "keywords": [
     "api",
     "typescript"
@@ -14,12 +15,25 @@
   },
   "scripts": {
     "format": "prettier --write src ./*.{ts,json}",
-    "build": "tsc --build tsconfig.json",
+    "prebuild": "rm -rf dist",
+    "build:cjs": "tsc --build tsconfig.cjs.json",
+    "build:esm": "tsc --build tsconfig.json",
+    "build": "npm run build:cjs && npm run build:esm && tsconfig-to-dual-package",
     "pretest": "npm run build",
     "test": "vitest run --config ./vitest.config.ts"
   },
   "exports": {
-    ".": "./dist/src/index.js"
+    ".": {
+      "import": {
+        "types": "./dist/esm/src/index.d.ts",
+        "default": "./dist/esm/src/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/src/index.d.ts",
+        "default": "./dist/cjs/src/index.js"
+      },
+      "default": "./dist/esm/src/src/index.js"
+    }
   },
   "author": "koh110",
   "license": "MIT",

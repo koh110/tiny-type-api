@@ -2,11 +2,11 @@
   "compilerOptions": {
     "strict": true,
     "incremental": true,
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "sourceMap": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "module": "NodeNext",
+    "module": "esnext",
     "target": "esnext",
     "skipLibCheck": true,
     "composite": true,

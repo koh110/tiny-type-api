@@ -1,21 +1,6 @@
 import { defineApis, define } from '@tiny-type-api/universal'
 
-// define apis
 export const { apis } = defineApis({
-  '/api/@me': {
-    GET: {
-      request: {
-        headers: define<{
-          Authorization: `Bearer ${string}`
-        }>()
-      },
-      response: {
-        200: {
-          body: define<{ id: string; name: string; email?: string }>()
-        }
-      }
-    }
-  },
   '/api/user/:user_id': {
     POST: {
       request: {
