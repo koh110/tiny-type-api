@@ -1,4 +1,5 @@
-src
-dist/**/*.test.js
+src/*
+dist/**/*.test.js*
+dist/**/*.test.d.*
 vitest.*
 tsconfig*
