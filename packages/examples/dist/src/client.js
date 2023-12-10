@@ -20,6 +20,5 @@ export async function client(port) {
         return;
     }
     console.log(res.status, res.body.id, res.body.name, res.body.email);
-    return
 }
 //# sourceMappingURL=client.js.map
