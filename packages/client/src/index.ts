@@ -64,7 +64,7 @@ function createClient<TPath extends string, TRoute extends RouteType>(
     }
 
     const contentType = (() => {
-      if (options.headers && options.headers['Content-Type']) {
+      if (options.headers?.['Content-Type']) {
         return options.headers['Content-Type']
       }
       if (options.form) {
@@ -149,7 +149,7 @@ export type fetcherOptions = Parameters<typeof defaultFetcher>[0]
 
 export function createClients<T extends Record<string, RouteMethodType>>(
   apis: T,
-  url: string = ''
+  url = ''
 ) {
   const clients: Record<string, ReturnType<typeof createRouteClients>> = {}
 

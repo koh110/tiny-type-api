@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import { test, expect } from 'vitest'
 import { defineApis, define } from './index.js'
 
