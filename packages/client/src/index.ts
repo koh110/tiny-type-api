@@ -55,16 +55,26 @@ function createClient<TPath extends string, TRoute extends RouteType>(
     }
 
     const fetcher = options.fetcher ?? defaultFetcher
-    const fetcherOptions: Parameters<typeof fetcher>[0] = {
+    const fetcherOptions: Parameters<Fetcher>[0] = {
       url: url + path,
       method,
       headers: {
-        ...options.headers,
-        ['Content-Type']:
-          options.headers && options.headers['Content-Type']
-            ? options?.headers['Content-Type']
-            : 'application/json'
+        ...options.headers
       }
+    }
+
+    const contentType = (() => {
+      if (options.headers && options.headers['Content-Type']) {
+        return options.headers['Content-Type']
+      }
+      if (options.form) {
+        return undefined
+      }
+      return 'application/json'
+    })()
+
+    if (contentType) {
+      fetcherOptions.headers['Content-Type'] = contentType
     }
 
     if (options.form) {
@@ -124,7 +134,7 @@ async function defaultFetcher<T>(options: {
     init.body = options.form
   }
   const res = await fetch(options.url, init)
-  const body = options.headers['Content-Type'].includes('application/json')
+  const body = options.headers['Content-Type']?.includes('application/json')
     ? await res.json()
     : await res.text()
   return {

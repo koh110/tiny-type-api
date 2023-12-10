@@ -103,8 +103,8 @@ test('clients: FormData', async () => {
   const resMock = {
     ok: true,
     status: 200,
-    json: async () => ({ name: 'user-name' })
-  } satisfies Pick<Response, 'ok' | 'status' | 'json'>
+    text: async () => 'user-name'
+  } satisfies Pick<Response, 'ok' | 'status' | 'text'>
   requestMock.mockResolvedValue(resMock as Response)
 
   const iconData = new Blob()
@@ -123,9 +123,7 @@ test('clients: FormData', async () => {
     'https://localhost:8000/api/user/user-id',
     {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: {},
       body: formData
     }
   )
