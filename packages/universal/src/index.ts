@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types, no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import type { Method, Routes, RouteParams, HasParamsInPath } from './type.js'
 
 export type {

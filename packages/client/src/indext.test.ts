@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import { beforeAll, vi, test, expect } from 'vitest'
 import { defineApis, define } from '@tiny-type-api/universal'
 
