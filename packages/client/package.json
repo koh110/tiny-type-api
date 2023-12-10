@@ -1,6 +1,6 @@
 {
   "name": "@tiny-type-api/client",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "type": "module",
   "main": "./dist/esm/src/index.js",
   "types": "./dist/esm/src/index.d.ts",
@@ -39,7 +39,7 @@
   "author": "koh110",
   "license": "MIT",
   "dependencies": {
-    "@tiny-type-api/universal": "^1.1.2",
+    "@tiny-type-api/universal": "^1.2.0",
     "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
