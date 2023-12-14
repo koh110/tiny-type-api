@@ -40,6 +40,16 @@ export const { apis } = defineApis({
                 }
             }
         }
-    }
+    },
+    '/api/void': {
+        PUT: {
+            request: {},
+            response: {
+                200: {
+                    body: define()
+                }
+            }
+        }
+    },
 });
 //# sourceMappingURL=universal.js.map

@@ -8,17 +8,8 @@ export async function client(port) {
             name: 'user-name'
         }
     });
-    if (res.status === 400) {
-        console.error(res.status, res.body.status, res.body.reason);
-        return;
-    }
-    if (res.status === 404) {
-        console.error(res.status, res.body.status, res.body.reason);
-        return;
-    }
-    if (!res.ok) {
-        return;
-    }
-    console.log(res.status, res.body.id, res.body.name, res.body.email);
+    console.log(res);
+    const res2 = await clients['/api/void'].PUT.client({});
+    console.log(res2);
 }
 //# sourceMappingURL=client.js.map

@@ -51,7 +51,17 @@ const { apis } = defineApis({
         }
       }
     }
-  }
+  },
+  '/api/void': {
+    PUT: {
+      request: {},
+      response: {
+        200: {
+          body: define<void>()
+        }
+      }
+    }
+  },
 })
 
 import { createClients } from './index.js'
@@ -68,9 +78,12 @@ test('clients', async () => {
   const resMock = {
     ok: true,
     status: 200,
+    headers: {
+      get: vi.fn().mockReturnValue('64')
+    },
     json: async () => ({ name: 'user-name' })
-  } satisfies Pick<Response, 'ok' | 'status' | 'json'>
-  requestMock.mockResolvedValue(resMock as Response)
+  } satisfies Pick<Response, 'ok' | 'status' | 'json'> & { headers: Pick<Response['headers'], 'get'> }
+  requestMock.mockResolvedValue(resMock as unknown as Response)
 
   const res = await clients['/api/user/:user_id'].POST.client({
     headers: {
@@ -96,15 +109,51 @@ test('clients', async () => {
   )
 })
 
+test('clients: void response body', async () => {
+  const requestMock = vi.mocked(fetch).mockReset()
+  type Response = Awaited<ReturnType<typeof fetch>>
+  const jsonFn = vi.fn()
+  const textFn = vi.fn()
+  const resMock = {
+    ok: true,
+    status: 200,
+    headers: {
+      get: vi.fn().mockReturnValue('0')
+    },
+    json: jsonFn,
+    text: textFn
+  } satisfies Pick<Response, 'ok' | 'status' | 'json' | 'text'> & { headers: Pick<Response['headers'], 'get'> }
+  requestMock.mockResolvedValue(resMock as unknown as Response)
+
+  const res = await clients['/api/void'].PUT.client({})
+
+  expect(res.ok).toStrictEqual(true)
+  expect(res.status).toStrictEqual(200)
+  expect(requestMock).toBeCalledTimes(1)
+  expect(requestMock).toBeCalledWith(
+    'https://localhost:8000/api/void',
+    {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' }
+    }
+  )
+  expect(jsonFn).toBeCalledTimes(0)
+  expect(textFn).toBeCalledTimes(0)
+})
+
+
 test('clients: FormData', async () => {
   const requestMock = vi.mocked(fetch).mockReset()
   type Response = Awaited<ReturnType<typeof fetch>>
   const resMock = {
     ok: true,
     status: 200,
+    headers: {
+      get: vi.fn().mockReturnValue('64')
+    },
     text: async () => 'user-name'
-  } satisfies Pick<Response, 'ok' | 'status' | 'text'>
-  requestMock.mockResolvedValue(resMock as Response)
+  } satisfies Pick<Response, 'ok' | 'status' | 'text'> & { headers: Pick<Response['headers'], 'get'> }
+  requestMock.mockResolvedValue(resMock as unknown as Response)
 
   const iconData = new Blob()
 

@@ -95,4 +95,14 @@ export declare const apis: {
             };
         };
     };
+    "/api/void": {
+        PUT: {
+            request: {};
+            response: {
+                200: {
+                    body: (args: void) => void;
+                };
+            };
+        };
+    };
 };
