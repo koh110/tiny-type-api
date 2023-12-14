@@ -10,20 +10,8 @@ export async function client(port: string | number) {
       name: 'user-name'
     }
   })
+  console.log(res)
 
-  if (res.status === 400) {
-    console.error(res.status, res.body.status, res.body.reason)
-    return
-  }
-
-  if (res.status === 404) {
-    console.error(res.status, res.body.status, res.body.reason)
-    return
-  }
-
-  if (!res.ok) {
-    return
-  }
-
-  console.log(res.status, res.body.id, res.body.name, res.body.email)
+  const res2 = await clients['/api/void'].PUT.client({})
+  console.log(res2)
 }
