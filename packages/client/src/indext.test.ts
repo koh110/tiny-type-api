@@ -78,7 +78,7 @@ test('clients', async () => {
   const resMock = {
     ok: true,
     status: 200,
-    text: async () => (JSON.stringify({ name: 'user-name-response' }))
+    text: async () => JSON.stringify({ name: 'user-name-response' })
   } satisfies Pick<Response, 'ok' | 'status' | 'text'>
   requestMock.mockResolvedValue(resMock as unknown as Response)
 
