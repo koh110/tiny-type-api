@@ -39,6 +39,6 @@
   "author": "koh110",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.5"
   }
 }
