@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -20,13 +20,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run lint -w @tiny-type-api/universal
+      - run: npm run build -w @tiny-type-api/universal
       - run: npm run test -w @tiny-type-api/universal
 
   test-client:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -35,13 +36,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run lint -w @tiny-type-api/client
+      - run: npm run build -w @tiny-type-api/client
       - run: npm run test -w @tiny-type-api/client
 
   test-examples:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
