@@ -20,9 +20,10 @@
     "prebuild": "rm -rf dist",
     "build:cjs": "tsc --build tsconfig.cjs.json",
     "build:esm": "tsc --build tsconfig.json",
+    "build:test": "tsc --build tsconfig.test.json",
     "build": "npm run build:cjs && npm run build:esm && tsconfig-to-dual-package",
-    "pretest": "npm run build",
-    "test": "vitest run --config ./vitest.config.ts"
+    "pretest": "npm run build:test",
+    "test": "node --experimental-strip-types --test src/**/*.test.ts"
   },
   "exports": {
     ".": {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.client = void 0;
+exports.client = client;
 const client_1 = require("@tiny-type-api/client");
 const universal_cjs_1 = require("./universal.cjs");
 async function client(port) {
@@ -24,5 +24,4 @@ async function client(port) {
     }
     console.log(res.status, res.body.id, res.body.name, res.body.email);
 }
-exports.client = client;
 //# sourceMappingURL=client.cjs.map

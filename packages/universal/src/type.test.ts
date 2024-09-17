@@ -1,4 +1,4 @@
-import { test } from 'vitest'
+import { test } from 'node:test'
 import type { RouteParams } from './type.js'
 
 test('RouteParams', async () => {

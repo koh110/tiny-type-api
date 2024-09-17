@@ -7,8 +7,9 @@
     "prestart": "npm run build",
     "start": "PORT=8000 node dist/src/server.js",
     "build": "tsc --build tsconfig.json",
-    "pretest": "npm run build",
-    "test": "vitest run --config ./vitest.config.ts"
+    "build:test": "tsc --build tsconfig.test.json",
+    "pretest": "npm run build:test",
+    "test": "node --experimental-strip-types --test test/**/*.test.ts"
   },
   "author": "koh110",
   "license": "MIT",

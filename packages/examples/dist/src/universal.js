@@ -50,6 +50,6 @@ export const { apis } = defineApis({
                 }
             }
         }
-    },
+    }
 });
 //# sourceMappingURL=universal.js.map
