@@ -14,5 +14,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "references": [{ "path": "../universal" }],
-  "exclude": ["node_modules", "dist", "vitest.config.ts"]
+  "exclude": ["node_modules", "dist", "vitest.config.ts", "**/*.test.ts"]
 }

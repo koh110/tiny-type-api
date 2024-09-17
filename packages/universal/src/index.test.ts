@@ -1,5 +1,5 @@
-import { test, expect } from 'vitest'
-import { defineApis, define } from './index.js'
+import { test, type TestContext } from 'node:test'
+import { defineApis, define } from './index.ts'
 
 const { apis } = defineApis({
   '/api/user': {
@@ -61,12 +61,16 @@ const { apis } = defineApis({
   }
 })
 
-test('added params function', async () => {
-  expect(
-    apis['/api/user/:user_id'].GET.request.params({ user_id: '1' }).user_id
-  ).toStrictEqual('1')
+test('added params function', async (t: TestContext) => {
+  t.assert.deepStrictEqual(
+    apis['/api/user/:user_id'].GET.request.params({ user_id: '1' }).user_id,
+    '1'
+  )
 })
 
-test('no params function', async () => {
-  expect((apis['/api/user'].GET.request as any).params).toStrictEqual(undefined)
+test('no params function', async (t: TestContext) => {
+  t.assert.deepStrictEqual(
+    (apis['/api/user'].GET.request as any).params,
+    undefined
+  )
 })

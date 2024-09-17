@@ -1,5 +1,6 @@
-import { beforeAll, vi, test, expect } from 'vitest'
+import { test, before, mock, type TestContext } from 'node:test'
 import { defineApis, define } from '@tiny-type-api/universal'
+import { createClients, type Fetcher } from './index.ts'
 
 // define apis
 const { apis } = defineApis({
@@ -64,23 +65,32 @@ const { apis } = defineApis({
   }
 })
 
-import { createClients } from './index.js'
-
 const clients = createClients(apis, 'https://localhost:8000')
 
-beforeAll(() => {
-  global.fetch = vi.fn()
+before(() => {
+  mock.method(globalThis, 'fetch', () => {
+    return Promise.resolve({
+      ok: true,
+      status: 200,
+      text: async () => ''
+    } as Response)
+  })
 })
 
-test('clients', async () => {
-  const requestMock = vi.mocked(fetch).mockReset()
+test('clients', async (t: TestContext) => {
+  t.mock.reset()
+
   type Response = Awaited<ReturnType<typeof fetch>>
+
   const resMock = {
     ok: true,
     status: 200,
     text: async () => JSON.stringify({ name: 'user-name-response' })
   } satisfies Pick<Response, 'ok' | 'status' | 'text'>
-  requestMock.mockResolvedValue(resMock as unknown as Response)
+
+  const requestMock = t.mock.method(globalThis, 'fetch', () => {
+    return Promise.resolve(resMock as unknown as Response)
+  })
 
   const res = await clients['/api/user/:user_id'].POST.client({
     headers: {
@@ -90,11 +100,11 @@ test('clients', async () => {
     body: { name: 'user-name' }
   })
 
-  expect(res.ok).toStrictEqual(true)
-  expect(res.status).toStrictEqual(200)
-  expect(res.body).toEqual({ name: 'user-name-response' })
-  expect(requestMock).toBeCalledTimes(1)
-  expect(requestMock).toBeCalledWith(
+  t.assert.strictEqual(res.ok, true)
+  t.assert.strictEqual(res.status, 200)
+  t.assert.deepEqual(res.body, { name: 'user-name-response' })
+  t.assert.strictEqual(requestMock.mock.callCount(), 1)
+  t.assert.deepEqual(requestMock.mock.calls[0].arguments, [
     'https://localhost:8000/api/user/user-id',
     {
       method: 'POST',
@@ -104,47 +114,58 @@ test('clients', async () => {
       },
       body: JSON.stringify({ name: 'user-name' })
     }
-  )
+  ])
 })
 
-test('clients: void response body', async () => {
-  const requestMock = vi.mocked(fetch).mockReset()
+test('clients: void response body', async (t: TestContext) => {
+  t.mock.reset()
   type Response = Awaited<ReturnType<typeof fetch>>
-  const textFn = vi.fn(() => Promise.resolve(''))
+
+  const textFn = t.mock.fn(() => Promise.resolve(''))
   const resMock = {
     ok: true,
     status: 200,
     text: textFn
   } satisfies Pick<Response, 'ok' | 'status' | 'text'>
-  requestMock.mockResolvedValue(resMock as unknown as Response)
+
+  const requestMock = t.mock.method(globalThis, 'fetch', () => {
+    return Promise.resolve(resMock as unknown as Response)
+  })
 
   const res = await clients['/api/void'].PUT.client({})
 
-  expect(res.ok).toStrictEqual(true)
-  expect(res.status).toStrictEqual(200)
-  expect(res.body).toStrictEqual('')
-  expect(requestMock).toBeCalledTimes(1)
-  expect(requestMock).toBeCalledWith('https://localhost:8000/api/void', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' }
-  })
-  expect(textFn).toBeCalledTimes(1)
+  t.assert.strictEqual(res.ok, true)
+  t.assert.strictEqual(res.status, 200)
+  t.assert.strictEqual(res.body, '')
+  t.assert.strictEqual(requestMock.mock.callCount(), 1)
+  t.assert.deepEqual(requestMock.mock.calls[0].arguments, [
+    'https://localhost:8000/api/void',
+    {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' }
+    }
+  ])
+  t.assert.strictEqual(textFn.mock.callCount(), 1)
 })
 
-test('clients: FormData', async () => {
-  const requestMock = vi.mocked(fetch).mockReset()
+test('clients: FormData', async (t: TestContext) => {
+  t.mock.reset()
+
   type Response = Awaited<ReturnType<typeof fetch>>
   const resMock = {
     ok: true,
     status: 200,
     headers: {
-      get: vi.fn().mockReturnValue('64')
+      get: t.mock.fn(() => '64')
     },
     text: async () => 'user-name'
   } satisfies Pick<Response, 'ok' | 'status' | 'text'> & {
     headers: Pick<Response['headers'], 'get'>
   }
-  requestMock.mockResolvedValue(resMock as unknown as Response)
+
+  const requestMock = t.mock.method(globalThis, 'fetch', () => {
+    return Promise.resolve(resMock as unknown as Response)
+  })
 
   const iconData = new Blob()
 
@@ -155,47 +176,54 @@ test('clients: FormData', async () => {
 
   const formData = new FormData()
   formData.append('icon', iconData)
-  expect(res.ok).toStrictEqual(true)
-  expect(res.status).toStrictEqual(200)
-  expect(requestMock).toBeCalledTimes(1)
-  expect(requestMock).toBeCalledWith(
+  t.assert.strictEqual(res.ok, true)
+  t.assert.strictEqual(res.status, 200)
+  t.assert.strictEqual(requestMock.mock.callCount(), 1)
+  t.assert.deepEqual(requestMock.mock.calls[0].arguments, [
     'https://localhost:8000/api/user/user-id',
     {
       method: 'PUT',
       headers: {},
       body: formData
     }
+  ])
+  t.assert.deepEqual(
+    Array.from(
+      (requestMock.mock.calls[0].arguments[1]?.body as FormData).entries()
+    ),
+    Array.from(formData.entries())
   )
-  expect(
-    Array.from((requestMock.mock.calls[0][1]?.body as FormData).entries())
-  ).toStrictEqual(Array.from(formData.entries()))
 })
 
-test('clients: custom fetcher', async () => {
-  const requestMock = vi.mocked(fetch).mockReset()
+test('clients: custom fetcher', async (t: TestContext) => {
+  t.mock.reset()
 
-  const fetcher = vi.fn().mockImplementation(async (options) => {
-    return {
+  const requestMock = t.mock.fn(global.fetch)
+
+  const fetcher = t.mock.fn((options: Parameters<Fetcher>[0]) => {
+    return Promise.resolve({
       ok: false,
       status: 200,
       body: options.url
-    }
+    })
   })
 
   const res = await clients['/api/@me'].GET.client({
-    fetcher: fetcher
+    fetcher: fetcher as Fetcher
   })
 
-  expect(res.ok).toStrictEqual(false)
-  expect(res.status).toStrictEqual(200)
-  expect(res.body).toStrictEqual('https://localhost:8000/api/@me')
-  expect(requestMock).toBeCalledTimes(0)
-  expect(fetcher).toBeCalledTimes(1)
-  expect(fetcher).toBeCalledWith({
-    url: 'https://localhost:8000/api/@me',
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
+  t.assert.strictEqual(res.ok, false)
+  t.assert.strictEqual(res.status, 200)
+  t.assert.strictEqual(res.body, 'https://localhost:8000/api/@me')
+  t.assert.strictEqual(requestMock.mock.callCount(), 0)
+  t.assert.strictEqual(fetcher.mock.callCount(), 1)
+  t.assert.deepEqual(fetcher.mock.calls[0].arguments, [
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      url: 'https://localhost:8000/api/@me'
     }
-  })
+  ])
 })
