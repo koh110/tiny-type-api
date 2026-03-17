@@ -69,8 +69,5 @@ test('added params function', async (t: TestContext) => {
 })
 
 test('no params function', async (t: TestContext) => {
-  t.assert.deepStrictEqual(
-    (apis['/api/user'].GET.request as any).params,
-    undefined
-  )
+  t.assert.deepStrictEqual((apis['/api/user'].GET.request as any).params, undefined)
 })

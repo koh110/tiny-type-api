@@ -2,21 +2,25 @@
   "name": "tiny-type-api",
   "version": "1.0.0",
   "description": "library for defining api interface server/client by TypeScript",
+  "license": "MIT",
+  "author": "koh110",
   "repository": {
     "type": "git",
     "url": "https://github.com/koh110/tiny-type-api.git"
   },
-  "author": "koh110",
-  "license": "MIT",
   "workspaces": [
     "packages/*"
   ],
+  "type": "module",
   "scripts": {
-    "format": "npm run format --workspaces --if-present"
+    "format": "vp fmt package.json vite.config.ts packages --write",
+    "format:check": "vp fmt package.json vite.config.ts packages --check",
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.7.3",
     "@types/node": "^22.5.5",
-    "tsconfig-to-dual-package": "^1.2.0"
+    "tsconfig-to-dual-package": "^1.2.0",
+    "vite-plus": "^0.1.12"
   }
 }

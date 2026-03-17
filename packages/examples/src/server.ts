@@ -1,9 +1,5 @@
 import http from 'http'
-import express, {
-  type Request,
-  type Response,
-  type NextFunction
-} from 'express'
+import express, { type Request, type Response, type NextFunction } from 'express'
 import { apis } from './universal.js'
 import { client } from './client.js'
 
