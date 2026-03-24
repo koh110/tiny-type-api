@@ -19,8 +19,8 @@
     "lint:fix": "vp lint --fix"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
+    "@types/node": "^25.5.0",
     "tsconfig-to-dual-package": "^1.2.0",
-    "vite-plus": "^0.1.12"
+    "vite-plus": "^0.1.13"
   }
 }

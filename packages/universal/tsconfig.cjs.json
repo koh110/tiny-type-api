@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "strict": true,
     "incremental": true,
     "outDir": "dist/cjs",

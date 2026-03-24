@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "strict": true,
     "incremental": true,
     "outDir": "dist/cjs",
@@ -12,6 +13,6 @@
     "composite": true,
     "forceConsistentCasingInFileNames": true
   },
-  "references": [{ "path": "../universal" }],
+  "references": [{ "path": "../universal/tsconfig.cjs.json" }],
   "exclude": ["node_modules", "**/*.test.ts", "dist", "vitest.config.ts"]
 }

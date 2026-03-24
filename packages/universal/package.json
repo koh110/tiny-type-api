@@ -37,9 +37,9 @@
     "build:test": "tsc --build tsconfig.test.json",
     "build": "npm run build:cjs && npm run build:esm && tsconfig-to-dual-package",
     "pretest": "npm run build:test",
-    "test": "node --experimental-strip-types --test src/**/*.test.ts"
+    "test": "node --test src/**/*.test.ts"
   },
   "devDependencies": {
-    "typescript": "^5.8.2"
+    "typescript": "^6.0.2"
   }
 }

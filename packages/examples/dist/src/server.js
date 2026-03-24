@@ -31,10 +31,10 @@ app.use(express.json());
 app.post('/api/user/:user_id', (req, res, next) => {
     handler(req, res).catch(next);
 });
-app.put('/api/void', (req, res, next) => {
+app.put('/api/void', (req, res, _next) => {
     res.status(200).send();
 });
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
     res.status(500).send('internal server error');
 });
 const server = http.createServer(app).listen(process.env.PORT || 0, () => {
