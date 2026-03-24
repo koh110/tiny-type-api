@@ -188,7 +188,7 @@ test('clients: FormData', async (t: TestContext) => {
     }
   ])
   t.assert.deepEqual(
-    Array.from((requestMock.mock.calls[0].arguments[1]?.body as FormData).entries()),
+    Array.from((requestMock.mock.calls[0].arguments[1]!.body as FormData).entries()),
     Array.from(formData.entries())
   )
 })

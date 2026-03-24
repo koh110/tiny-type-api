@@ -15,7 +15,7 @@ test('ECMAScript Modules', (t: TestContext, done) => {
       encoding: 'utf-8',
       signal: controller.signal
     },
-    (err, stdout, stderr) => {
+    (err, _stdout, _stderr) => {
       if (err) {
         done(err)
         return
@@ -34,7 +34,7 @@ test('CommonJS', (t: TestContext, done) => {
       encoding: 'utf-8',
       signal: controller.signal
     },
-    (err, stdout, stderr) => {
+    (err, _stdout, _stderr) => {
       if (err) {
         done(err)
         return

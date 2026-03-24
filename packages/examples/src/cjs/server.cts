@@ -39,7 +39,7 @@ app.post('/api/user/:user_id', (req, res, next) => {
   handler(req, res).catch(next)
 })
 
-app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
   res.status(500).send('internal server error')
 })
 
