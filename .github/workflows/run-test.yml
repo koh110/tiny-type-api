@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  NPM_VERSION: 11.6.0
+  NPM_VERSION: 11.11.0
 
 jobs:
   test-universal:

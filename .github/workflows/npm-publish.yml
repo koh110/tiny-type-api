@@ -11,6 +11,7 @@ permissions:
 
 env:
   node-version: 24
+  npm-version: 11.11.0
 
 # https://docs.npmjs.com/trusted-publishers#step-2-configure-your-cicd-workflow
 jobs:
@@ -23,6 +24,7 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install --global npm@${{ env.npm-version }}
       - run: npm ci
       - run: npm run build -w @tiny-type-api/universal
       - run: cp ./README.md ./packages/universal/README.md
@@ -37,6 +39,7 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install --global npm@${{ env.npm-version }}
       - run: npm ci
       - run: npm run build -w @tiny-type-api/client
       - run: cp ./README.md ./packages/client/README.md
