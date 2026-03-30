@@ -1,9 +1,7 @@
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 export type HttpStatus = number
 
-export type HasParamsInPath<T extends string> =
-  // biome-ignore lint/suspicious/noRedeclare: unused type
-  T extends `${infer _}/:${infer _}` ? true : false
+export type HasParamsInPath<T extends string> = T extends `${infer _}/:${infer _}` ? true : false
 
 export type RouteType = {
   request: {
@@ -31,12 +29,11 @@ export type Routes<T extends string> = {
   [key in T]: RouteMethodType
 }
 
-export type RouteParams<T> =
-  T extends `${infer _}:${infer IParam}/${infer IRest}`
-    ? { [k in IParam | keyof RouteParams<IRest>]: string }
-    : T extends `${infer _}:${infer IParam}`
-      ? { [k in IParam]: string }
-      : {}
+export type RouteParams<T> = T extends `${infer _}:${infer IParam}/${infer IRest}`
+  ? { [k in IParam | keyof RouteParams<IRest>]: string }
+  : T extends `${infer _}:${infer IParam}`
+    ? { [k in IParam]: string }
+    : {}
 
 export type DefinedType<T> = T extends infer Q extends (...args: any) => any
   ? ReturnType<Q>
@@ -48,9 +45,7 @@ export type DefinedRoute<T extends RouteType> = {
   }
   response: {
     [key in keyof T['response']]: {
-      [paramsKey in keyof T['response'][key]]: DefinedType<
-        T['response'][key][paramsKey]
-      >
+      [paramsKey in keyof T['response'][key]]: DefinedType<T['response'][key][paramsKey]>
     }
   }
 }

@@ -13,13 +13,7 @@ export function define<T>() {
   return (args: T) => args
 }
 
-export const methods: readonly Method[] = [
-  'GET',
-  'POST',
-  'PUT',
-  'DELETE',
-  'PATCH'
-] as const
+export const methods: readonly Method[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'] as const
 
 function addParams<T extends Routes<string>>(apis: T) {
   for (const [key, api] of Object.entries(apis)) {
@@ -44,9 +38,7 @@ function addParams<T extends Routes<string>>(apis: T) {
   }
 }
 
-export function defineApis<T extends Routes<TKeys>, TKeys extends string>(
-  apis: T
-) {
+export function defineApis<T extends Routes<TKeys>, TKeys extends string>(apis: T) {
   const paramsApi = addParams(apis)
   return { apis: paramsApi }
 }

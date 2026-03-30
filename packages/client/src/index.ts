@@ -16,9 +16,7 @@ type ClinetOptions<TPath extends string, TRoute extends RouteType> = {
       params: RouteParams<TPath>
     }
   : {}) & {
-    [key in keyof TRoute['request']]: TRoute['request'][key] extends (
-      arg: any
-    ) => any
+    [key in keyof TRoute['request']]: TRoute['request'][key] extends (arg: any) => any
       ? ReturnType<TRoute['request'][key]>
       : never
   }
@@ -93,10 +91,11 @@ function createClient<TPath extends string, TRoute extends RouteType>(
   return { client }
 }
 
-function createRouteClients<
-  TPath extends string,
-  TRoutes extends RouteMethodType
->(url: string, path: TPath, routes: TRoutes) {
+function createRouteClients<TPath extends string, TRoutes extends RouteMethodType>(
+  url: string,
+  path: TPath,
+  routes: TRoutes
+) {
   const toPath = compile(path)
   const clients = {} as {
     [key in keyof TRoutes & Method]: ReturnType<
@@ -126,10 +125,7 @@ async function defaultFetcher<T>(options: {
   }
 
   if (options.body) {
-    init.body =
-      typeof options.body === 'string'
-        ? options.body
-        : JSON.stringify(options.body)
+    init.body = typeof options.body === 'string' ? options.body : JSON.stringify(options.body)
   }
 
   if (options.form) {
@@ -139,10 +135,7 @@ async function defaultFetcher<T>(options: {
   const res = await fetch(options.url, init)
 
   let body = await res.text()
-  if (
-    body.length > 0 &&
-    options.headers['Content-Type']?.includes('application/json')
-  ) {
+  if (body.length > 0 && options.headers['Content-Type']?.includes('application/json')) {
     body = JSON.parse(body)
   }
 
@@ -156,10 +149,7 @@ async function defaultFetcher<T>(options: {
 export type Fetcher = typeof defaultFetcher
 export type fetcherOptions = Parameters<typeof defaultFetcher>[0]
 
-export function createClients<T extends Record<string, RouteMethodType>>(
-  apis: T,
-  url = ''
-) {
+export function createClients<T extends Record<string, RouteMethodType>>(apis: T, url = '') {
   const clients: Record<string, ReturnType<typeof createRouteClients>> = {}
 
   for (const path of Object.keys(apis)) {
@@ -168,8 +158,6 @@ export function createClients<T extends Record<string, RouteMethodType>>(
   }
 
   return clients as {
-    [key in keyof T & string]: ReturnType<
-      typeof createRouteClients<key, T[key]>
-    >
+    [key in keyof T & string]: ReturnType<typeof createRouteClients<key, T[key]>>
   }
 }

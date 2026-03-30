@@ -1,25 +1,26 @@
 {
   "name": "@tiny-type-api/examples",
-  "type": "module",
   "description": "library for defining api interface server/client by TypeScript",
+  "license": "MIT",
+  "author": "koh110",
+  "type": "module",
   "scripts": {
-    "format": "biome format --write src",
+    "format": "vp fmt src --write",
+    "lint": "vp lint src",
     "prestart": "npm run build",
     "start": "PORT=8000 node dist/src/server.js",
     "build": "tsc --build tsconfig.json",
     "build:test": "tsc --build tsconfig.test.json",
     "pretest": "npm run build:test",
-    "test": "node --experimental-strip-types --test test/**/*.test.ts"
-  },
-  "author": "koh110",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/express": "^5.0.0",
-    "typescript": "^5.4.5"
+    "test": "node --test test/**/*.test.ts"
   },
   "dependencies": {
     "@tiny-type-api/client": "file:../client",
     "@tiny-type-api/universal": "file:../universal",
-    "express": "^4.18.2"
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "typescript": "^6.0.2"
   }
 }

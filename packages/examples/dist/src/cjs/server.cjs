@@ -36,7 +36,7 @@ app.use(express_1.default.json());
 app.post('/api/user/:user_id', (req, res, next) => {
     handler(req, res).catch(next);
 });
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
     res.status(500).send('internal server error');
 });
 const server = http_1.default.createServer(app).listen(process.env.PORT || 0, () => {

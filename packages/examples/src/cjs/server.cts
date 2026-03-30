@@ -1,9 +1,5 @@
 import http from 'http'
-import express, {
-  type Request,
-  type Response,
-  type NextFunction
-} from 'express'
+import express, { type Request, type Response, type NextFunction } from 'express'
 import { apis } from './universal.cjs'
 import { client } from './client.cjs'
 
@@ -43,7 +39,7 @@ app.post('/api/user/:user_id', (req, res, next) => {
   handler(req, res).catch(next)
 })
 
-app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
   res.status(500).send('internal server error')
 })
 
