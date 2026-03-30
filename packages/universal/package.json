@@ -1,6 +1,6 @@
 {
   "name": "@tiny-type-api/universal",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "library for defining api interface server/client by TypeScript",
   "keywords": [
     "api",
